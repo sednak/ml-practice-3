@@ -1,0 +1,56 @@
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+import pandas as pd
+import matplotlib.pyplot as plt
+  x,y=make_blobs(
+    n_samples=300,
+    centers=3,
+    cluster_std=0.60,
+    random_state=42
+    
+)
+    df=pd.DataFrame(x,columns=["feature 1","feature 2"])
+df["cluster"]=y
+    df.head()
+    df.tail()
+    model=KMeans(n_clusters=3,random_state=42)
+    model.fit(x)
+    y_pred=model.predict(x)
+print(y_pred)
+    plt.figure(figsize=(8,6))
+plt.scatter(x[:,0],x[:,1],c=y_pred)
+plt.scatter(
+    model.cluster_centers_[:,0],
+    model.cluster_centers_[:,1],
+    s=300,
+    marker='x'
+)
+plt.title("kmeans")
+plt.xlabel("feature 1")
+plt.ylabel("feature 2")
+plt.show()
+    wcss=[]
+for i in range (1,11):
+    model=KMeans(n_clusters=i,
+                random_state=42
+                )
+    model.fit(x)
+    wcss.append(model.inertia_)
+plt.figure(figsize=(8,6))
+plt.plot(
+        range(1,11),
+        wcss,
+        marker='o'
+)
+plt.title("Elbow method")
+plt.show()
+    from sklearn.metrics import silhouette_score
+    for i in range(2,11):
+    model=KMeans(
+        n_clusters=i,
+        random_state=42
+    )
+    labels=model.fit_predict(x) 
+    score=silhouette_score(x,labels)
+    print("k=",i)
+    print("silhouette_score",score)
