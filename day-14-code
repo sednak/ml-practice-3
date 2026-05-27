@@ -1,0 +1,29 @@
+from sklearn.datasets import make_blobs
+import pandas as pd
+import matplotlib.pyplot as plt
+ !pip install scikit-learn-extra
+  !pip install numpy==1.26.4
+  from sklearn_extra.cluster import KMedoids
+  x,y=make_blobs(
+    n_samples=300,
+    centers=3,
+    cluster_std=0.60,
+    random_state=42
+    
+)
+    model=KMedoids(n_clusters=3,random_state=42)
+model.fit(x)
+    y_pred=model.predict(x)
+print(y_pred)
+plt.figure(figsize=(8,6))
+plt.scatter(x[:,0],x[:,1],c=y_pred)
+plt.scatter(
+    model.cluster_centers_[:,0],
+    model.cluster_centers_[:,1],
+    s=300,
+    marker='x'
+)
+plt.title("kmedoids")
+plt.xlabel("feature 1")
+plt.ylabel("feature 2")
+plt.show()
