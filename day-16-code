@@ -1,0 +1,24 @@
+from sklearn.datasets import make_blobs
+from scipy.cluster.hierarchy import dendrogram,linkage
+import matplotlib.pyplot as plt
+  x,y=make_blobs(
+    n_samples=300,
+    centers=3,
+    cluster_std=0.60,
+    random_state=42
+)
+    link=linkage(
+    x,
+    method='complete'
+)
+    plt.figure(figsize=(8,6))
+dendrogram(linked)
+plt.title("AGNUS")
+plt.xlabel("feature 1")
+plt.ylabel("feature 2")
+plt.show()
+    linked=(linkage(x,method="single"))
+plt.figure(figsize=(8,6))
+dendrogram(linked)
+plt.title("Agglomerative Clustering Dendrogram")
+plt.show()
