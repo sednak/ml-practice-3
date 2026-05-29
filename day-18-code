@@ -1,0 +1,21 @@
+import pandas as pd  
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+  iris=load_iris()
+x=iris.data
+y=iris.target
+print(x.shape)
+  scaler=StandardScaler()
+x_scaled=scaler.fit_transform(x)
+pca=PCA(n_components=2)
+x_pca=pca.fit_transform(x_scaled)
+print(x_pca.shape)
+  print(pca.explained_variance_ratio_)
+  plt.figure(figsize=(10,7))
+plt.scatter(x[:,0],x[:,1],c=y,cmap='viridis')
+plt.xlabel('pca1')
+plt.ylabel('pca2')
+plt.title('PCA')
+plt.show()
